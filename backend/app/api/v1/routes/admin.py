@@ -167,7 +167,7 @@ def symmetry_score(authenticated: bool = Depends(security.validate_request)):
     end_date=str(date.today())
 
     #3/6months from today For 3months set days = 90 , 6 months = 180
-    start_date=str(date.today() - timedelta(days=90))
+    start_date=str(date.today() - timedelta(days=600))
     response = GRAPH.run(cypher.QELO_RESPONSE_BETWEEN_DATES,
                               parameters={"start_date":str(start_date),
                               "end_date":str(end_date)}).data()
@@ -183,7 +183,7 @@ def overall_response(authenticated: bool = Depends(security.validate_request)):
     active_user_list = GRAPH.run(cypher.GET_ACTIVE_USER_LIST).data()
     active_user_id = GRAPH.run(cypher.GET_ACTIVE_USER_IDS).data()
     end_date=str(date.today())
-    start_date=str(date.today() - timedelta(days=90))
+    start_date=str(date.today() - timedelta(days=600))
     response = GRAPH.run(cypher.QELO_RESPONSE_BETWEEN_DATES,
                             parameters={"start_date":str(start_date),
                             "end_date":str(end_date)}).data()
