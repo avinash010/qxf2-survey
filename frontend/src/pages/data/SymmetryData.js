@@ -6,7 +6,7 @@ axios.defaults.headers.common['User'] = process.env.REACT_APP_API_KEY
 var score = [];
 var employee_name = [];
 
-axios.get(`${URL}/survey/admin/symmetry-score`)
+axios.post(`${URL}/survey/admin/symmetry-score`, {"days":600})
 .then(function (response) {
 
   for(var name in response.data['employee_name']){

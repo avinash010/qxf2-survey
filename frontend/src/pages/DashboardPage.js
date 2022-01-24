@@ -26,6 +26,12 @@ const DashboardPage = () => {
   var symmetry_score = [];
 
   const [loading, setLoading] = useState(false);
+  const [timevalue, setTimevalue] = useState("")
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(`The time you entered was: ${timevalue}`)
+  }
   
   axios.get(`${URL}/survey/admin/overall_response`)
   .then(function (response) {
@@ -42,7 +48,7 @@ const DashboardPage = () => {
     console.log(error.response);
   });
   
-  axios.get(`${URL}/survey/admin/symmetry-score`)
+  axios.post(`${URL}/survey/admin/symmetry-score`, {"days":600})
   .then(function (response) {
     for(var name in response.data['employee_name']){
       symmetry_employee_name.push(response.data['employee_name'][name]);
@@ -62,6 +68,18 @@ const DashboardPage = () => {
       { (loading)?(
     <>
       <h2>Survey Analysis Dashboard</h2>
+      <div>
+      <form onSubmit={handleSubmit}>
+      <label>Enter the time period for which you want to fetch the scores:
+        <input 
+          type="text" 
+          value={timevalue}
+          onChange={(e) => setTimevalue(e.target.value)}
+        />
+      </label>
+      <input type="submit" />
+    </form>
+    </div>
       <div style={{ backgroundColor: '#efefef', height: '300px', width: '100%' }}>
         <ReactWordcloud words={words} />
       </div>

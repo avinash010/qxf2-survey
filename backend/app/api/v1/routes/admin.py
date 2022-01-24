@@ -159,15 +159,16 @@ def admin_login(idtoken: str = Form(...),
         # Invalid token
         return ValueError
 
-@router.get('/symmetry-score')
-def symmetry_score(authenticated: bool = Depends(security.validate_request)):
+@router.post('/symmetry-score')
+def symmetry_score(time_period:schemas.time_period, authenticated: bool = Depends(security.validate_request)):
     "Get symmetery score"
 
+    days = time_period.days
     active_employees = GRAPH.run(cypher.GET_ACTIVE_USER_NAME).data()
     end_date=str(date.today())
 
     #3/6months from today For 3months set days = 90 , 6 months = 180
-    start_date=str(date.today() - timedelta(days=600))
+    start_date=str(date.today() - timedelta(days=days))
     response = GRAPH.run(cypher.QELO_RESPONSE_BETWEEN_DATES,
                               parameters={"start_date":str(start_date),
                               "end_date":str(end_date)}).data()

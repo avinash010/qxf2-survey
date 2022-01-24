@@ -23,3 +23,8 @@ class FetchResponses(BaseModel):
     "request body"
     start_date: datetime.date
     end_date: datetime.date
+
+class time_period(BaseModel):
+    "request body"
+
+    days: int
