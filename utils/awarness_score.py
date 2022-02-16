@@ -175,14 +175,14 @@ def run_awareness_analysis(help_survey_api_token, start_date,end_date):
 
 if __name__ == '__main__':
 
-    help_survey_api_token ="None"
+    help_survey_api_token =""
     
     if len(sys.argv)<3:
 
         end_date = datetime.today()
         start_date = (end_date - timedelta(days=365)).strftime('%Y-%m-%d')
         end_date = end_date.strftime('%Y-%m-%d')
-        print ("Last year awarness score is calculated: start and end date used:", start_date, end_date)
+        print ("Awarness score for time period: %s to %s:"%(start_date, end_date))
         print('Use: python {} start_date<YYYY-mm-dd> end_date<YYYY-mm-dd> if score is needed for different time range\nExample usage: {} 2020-12-01 2021-12-01'.format(__file__,__file__))
 
     else:
